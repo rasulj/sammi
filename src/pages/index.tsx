@@ -1,7 +1,13 @@
 import Head from 'next/head';
-import { Header, Row } from 'src/components';
+import { Header, Hero, Row } from 'src/components';
 
-export default function Home() {
+import { API_REQUEST } from 'src/service/api.service';
+import { GetServerSideProps } from 'next';
+import { IMovis } from 'src/interfaces/app.interface';
+
+export default function Home({ trending }: HomeProps):JSX.Element {
+	
+	
 	return (
 		<div className='relative h-[200vh]'>
 			<Head>
@@ -12,8 +18,8 @@ export default function Home() {
 			</Head>
 			<Header/>
 		
-			<main>
-			{ /* hero*/}
+			<main className='relative pl-4 pb-4 lg:space-y-24 lg:pl-16'>
+				<Hero trending ={trending} />
 			<section>
 				   { /* row*/}
 					{ /* bigrow*/}
@@ -24,4 +30,16 @@ export default function Home() {
 			</main>
 		</div>
 	);
+}
+export const getServerSideProps: GetServerSideProps<HomeProps>= async()=>{
+	const trending = await fetch(API_REQUEST.trending).then(res => res.json())
+
+	return {
+		props:{
+			trending: trending.results,
+		}
+	}
+}
+interface HomeProps{
+	trending:IMovis[]
 }
