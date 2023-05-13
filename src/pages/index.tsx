@@ -6,8 +6,7 @@ import { GetServerSideProps } from 'next';
 import { IMovis } from 'src/interfaces/app.interface';
 
 export default function Home({ trending }: HomeProps):JSX.Element {
-	
-	
+		
 	return (
 		<div className='relative h-[200vh]'>
 			<Head>
@@ -33,7 +32,8 @@ export default function Home({ trending }: HomeProps):JSX.Element {
 }
 export const getServerSideProps: GetServerSideProps<HomeProps>= async()=>{
 	const trending = await fetch(API_REQUEST.trending).then(res => res.json())
-
+   
+	
 	return {
 		props:{
 			trending: trending.results,
