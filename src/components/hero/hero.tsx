@@ -4,11 +4,11 @@ import { useEffect , useState} from 'react'
 import { IMovis } from "src/interfaces/app.interface";
 import { image_base } from "src/helpers/constants";
 import { TbPlayerPlay } from 'react-icons/tb';
-  import ReactStars from 'react-stars'
+import ReactStars from 'react-stars'
 
   
 const Hero = ({trending}:Heroprops):JSX.Element => {
-  
+              
     const [movie, setMovie] = useState<IMovis>({}as IMovis);
 
 
@@ -16,19 +16,19 @@ const Hero = ({trending}:Heroprops):JSX.Element => {
    
      
     useEffect(()=>{
+      
       setMovie(rendomMoves)
     },[trending])
 
   return (
     <div className="flex flex-col space-y-2 py-20 md:space-y-4 lg:h-[65vh] lg:pb-12 lg:center">
       <div className="absolute -z-10 top-0 left-0 h-[95vh] w-full ">
-        <Image src={`${image_base}${movie?.backdrop_path || movie?.poster_path}`} 
-        alt={movie.title}
-         fill
-          className="object-cover" />
+        <Image src={`${image_base}${movie?.backdrop_path || movie?.poster_path}`} alt={movie.title || 'photo'} fill className="object-cover" />
       </div>
-      <div className="py-[4px] text-center px-[8px] bg-[#1d1d1d]/50  w-[111px] rounded-bl-[8px] rounded-tr-[8px]"> 
+
+      <div className="py-[4px] text-center px-[8px] bg-[#e5e5e5]/50  w-[111px] rounded-bl-[8px] rounded-tr-[8px]"> 
       {movie.media_type}</div>
+      
       <div className="flex items-center space-x-2">
         <ReactStars count={10} edit={false} value={movie.vote_average} color2={"#fff"}/>
        <p>({movie.vote_count})</p>

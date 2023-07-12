@@ -1,13 +1,38 @@
 import Head from 'next/head';
-import { Header, Hero, Row } from 'src/components';
-
+import { useContext } from 'react';
+import { AuthContext } from 'src/context/auth.context';
 import { API_REQUEST } from 'src/service/api.service';
 import { GetServerSideProps } from 'next';
 import { IMovis } from 'src/interfaces/app.interface';
+import { Header, Hero, Row } from 'src/components';
+import { useInfoStore } from 'src/store';
 
-export default function Home({ trending }: HomeProps):JSX.Element {
+
+
+
+
+export default function Home({ trending, 
+	topRated,
+	 tvTopRated,
+	  popular, 
+	  comedy, 
+	  documentary, 
+	  family,
+	   horror 
+	}: HomeProps):JSX.Element{
+
+const { setModal,modal} = useInfoStore()
+
+	const { isLoading } = useContext(AuthContext);
+	console.log(modal);
+	
+	
+	if (isLoading)<>{null}</>; 
+	 	
+	
+	
+		return (
 		
-	return (
 		<div className='relative h-[200vh]'>
 			<Head>
 				<title>Home-Sammi</title>
@@ -20,26 +45,56 @@ export default function Home({ trending }: HomeProps):JSX.Element {
 			<main className='relative pl-4 pb-4 lg:space-y-24 lg:pl-16'>
 				<Hero trending ={trending} />
 			<section>
-				   { /* row*/}
-					{ /* bigrow*/}
-					{ /* row*/}
-					{ /* bigrow*/}	
-			</section>
+				    <Row title='Top Rated' movies={topRated} />
+					<Row title='Tv Show' movies={tvTopRated} isBig={true}/>
+					<Row title=' Popular' movies={popular} />
+					<Row title='Comedy' movies={comedy} />
+					<Row title='Documentary' movies={documentary} />
+					<Row title='Family' movies={family} />
+					<Row title='Horror' movies={horror} />
 			
+					
+			</section>
+			   <button onClick={()=> setModal(true) }>click</button>
+			  
 			</main>
 		</div>
 	);
-}
-export const getServerSideProps: GetServerSideProps<HomeProps>= async()=>{
-	const trending = await fetch(API_REQUEST.trending).then(res => res.json())
-   
+	}
 	
+
+export const getServerSideProps: GetServerSideProps<HomeProps> = async() => {
+	const trending = await  fetch(API_REQUEST.trending).then(res => res.json())
+	const topRated = await fetch(API_REQUEST.top_rated).then(res => res.json())
+	const tvTopRated = await fetch(API_REQUEST.tv_top_Rated).then(res => res.json())
+	const moviePopular = await fetch(API_REQUEST.movie_popular).then(res => res.json())
+	const Comedy = await fetch(API_REQUEST.Comedy).then(res => res.json())
+	const Documentary = await fetch(API_REQUEST.Documentary).then(res => res.json())
+	const Family = await fetch(API_REQUEST.Family).then(res => res.json())
+	const Horror = await fetch(API_REQUEST.Horror).then(res => res.json())
+
 	return {
 		props:{
 			trending: trending.results,
+			topRated: topRated.results,
+			tvTopRated: tvTopRated.results,
+			popular: moviePopular.results,
+			comedy: Comedy.results,
+			documentary: Documentary.results,
+			family: Family.results,
+			horror: Horror.results,
+
 		}
 	}
 }
 interface HomeProps{
 	trending:IMovis[]
+	topRated: IMovis[]
+	tvTopRated: IMovis[]
+	popular: IMovis[]
+	comedy: IMovis[]
+	documentary: IMovis[]
+	family: IMovis[]
+	horror: IMovis[]
+
 }
