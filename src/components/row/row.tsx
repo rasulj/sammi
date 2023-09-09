@@ -22,8 +22,8 @@ const Row = ({title, movies, isBig = false}:Rowprops) => {
  }
   }
   return (
-    <div className=" h-[600px] space-y-1 md:space-y-2">
-     <h2 className="w-56 cursor-pointer text-sm md:text-2xl font-semibold text-[#e5e5e5e] hover:text-white transiton duration-200">{title}</h2>
+    <div className=" md:h-[600px] space-y-3 md:space-y-2">
+     <h2 className="w-56 cursor-pointer text-lg md:text-2xl mt-4 md:mt-0 font-semibold text-[#e5e5e5e] hover:text-white transiton duration-200">{title}</h2>
      {/* carusel*/}
 
      <div className=" group relative md:ml-2"> 

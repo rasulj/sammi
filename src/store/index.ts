@@ -1,16 +1,19 @@
-import { IMovis } from 'src/interfaces/app.interface'
-import {create} from 'zustand'
 
+import { IMovis } from 'src/interfaces/app.interface'
+
+import {create} from 'zustand'
 
 interface InfoState {
     modal:boolean
-    movie:IMovis
+    currentMovie:IMovis
     setModal:(bool:boolean) => void
-    setMovie: (movie: IMovis) => void
+    setCurrentMovie: (movie: IMovis) => void
 }
+
+
 export const useInfoStore = create<InfoState>()(set =>({
     modal:false,
-    movie: {} as IMovis,
-    setModal:(bool:boolean) => set(state=>({...state, modal:bool})),
-    setMovie: (movie: IMovis) => set(state => ({ ...state, movie:movie}))
+    currentMovie:{} as IMovis,
+    setModal:(bool:boolean)=>set(state=>({...state, modal:bool})),
+    setCurrentMovie: (movie: IMovis) => set(state =>({...state, currentMovie:movie}))
 }))

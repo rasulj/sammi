@@ -2,14 +2,15 @@ import Image from "next/image"
 import Link from "next/link"
 import { AiOutlineSearch, AiOutlineUser, AiOutlineLogout } from 'react-icons/ai'
 import { BiBellMinus } from 'react-icons/bi'
-import { useEffect,useState,useContext} from 'react'
-import { AuthContext } from "../../context/auth.context"
+import { useEffect,useState} from 'react'
+import { useAuth } from "src/hooks/useAuth"
+import NavMenu from "../nav-menu/nav-menu"
 
 
 
 const Header = () => {
   const[scrolled ,setscrolled] = useState(false)
-  const { logout } = useContext(AuthContext)
+  const { logout } = useAuth()
 
    useEffect(()=>{
     const handleScroll = ()=>{  window.scrollY > 0 ? setscrolled(true) : setscrolled(false) }
@@ -21,9 +22,10 @@ const Header = () => {
    },[])
 
   return (
-    <header className={`${scrolled && 'bg-slate-900'}`}>
+    <header className={`${scrolled && 'bg-slate-900/90'}`}>
       <div className="flex items-center space-x-2 md:space-x-10">
         <Image src={'./logo.svg'} alt="logo" width={56} height={56} className="cursor-pointer object-contain  "/>
+       <NavMenu/>
       <ul className="space-x-4  md:flex hidden">
         <li className="navLink">Home</li>
           <li className="navLink">Movies</li>

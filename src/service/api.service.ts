@@ -1,5 +1,5 @@
 const  api_key= process.env.NEXT_PUBLIC_API_KEY as string
-
+const products_domain = process.env.NEXT_PUBLIC_DOMAIN
 const base_url = process.env.NEXT_PUBLIC_API_DOMAIN as string
 
 export const API_REQUEST ={
@@ -11,4 +11,6 @@ export const API_REQUEST ={
     Comedy: `${base_url}/movie/35/similar?api_key=${api_key}&language=en-US`,
     Documentary: `${base_url}/movie/99/similar?api_key=${api_key}&language=en-US`,
     Horror: `${base_url}/movie/27/similar?api_key=${api_key}&language=en-US`,
+    products_list: `${products_domain}/api/products`,
+    subscription: `${products_domain}/api/subscription`
 }
